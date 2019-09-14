@@ -1,7 +1,7 @@
-var db = require("./db.js");
-var xlsx = require('node-xlsx');
-var fs = require('fs');
-var obj = xlsx.parse(__dirname + '/document/battles.csv');
+const db = require("./db.js");
+const xlsx = require('node-xlsx');
+const fs = require('fs');
+const obj = xlsx.parse(__dirname + '/document/battles.csv');
 
 (() => {
     return new Promise(async (resolve, reject) => {
