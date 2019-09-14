@@ -1,4 +1,4 @@
 git add .
-git commit -m "battle count api"
+git commit -m development
 git push origin master
-heroku logs -a gameofthronesapi --tail
+# heroku logs -a gameofthronesapi --tail

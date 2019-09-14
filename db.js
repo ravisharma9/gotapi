@@ -13,7 +13,9 @@ function insertCollection(model) {
         try {
             if (model && model.data && model.collection) {
                 MongoClient.connect(url, function (err, db) {
-                    if (err) throw err;
+                    if (err) {
+                        return reject({ status: "failure", msg: err })
+                    };
                     db.db(dbName).collection(model.collection).insertMany(model.data, function (err, res) {
                         if (err) {
                             return reject({ status: "failure", msg: err })
@@ -40,7 +42,9 @@ function findInCollection(model) {
         try {
             if (model && model.data && model.collection) {
                 MongoClient.connect(url, function (err, db) {
-                    if (err) throw err;
+                    if (err) {
+                        return reject({ status: "failure", msg: err })
+                    }
                     db.db(dbName).collection(model.collection).find(model.data).toArray(function (err, result) {
                         if (err) {
                             return reject({ status: "failure", msg: err })
@@ -67,7 +71,9 @@ function distinctInCollection(model) {
         try {
             if (model && model.key && model.collection && model.query) {
                 MongoClient.connect(url, function (err, db) {
-                    if (err) throw err;
+                    if (err) {
+                        return reject({ status: "failure", msg: err })
+                    }
                     db.db(dbName).collection(model.collection).distinct(model.key, model.query,
                         (function (err, result) {
                             if (err) {
