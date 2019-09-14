@@ -74,7 +74,7 @@ function distinctInCollection(model) {
                                 return reject({ status: "failure", msg: err })
                             }
                             if (result) {
-                                console.log(result);
+                                // console.log(result);
                                 return resolve({ status: "success", msg: "find successfull", data: result })
                             }
                         })
