@@ -1,31 +1,30 @@
 module.exports = {
     list: list,
     count: count,
-    search: search
+    search: search,
+    stats: stats
 }
-var db = require('./db.js')
+var dbApp = require('./db.js')
 var stringSimilarity = require('string-similarity');
 var keyData = require(__dirname + '/document/battlesKey.json')
 
 function list() {
     return new Promise(async (resolve, reject) => {
         try {
-            return resolve(await db.distinctInCollection({ collection: "battles", key: "location", query: { "location": { $nin: ["", null] } } }))
+            return resolve(await dbApp.distinctInCollection({ collection: "battles", key: "location", query: { "location": { $nin: ["", null] } } }))
         } catch (e) {
             return reject()
         }
-
     })
 }
 
 function count() {
     return new Promise(async (resolve, reject) => {
         try {
-            return resolve(await db.distinctInCollection({ collection: "battles", key: "battle_number", query: { "battle_number": { $nin: ["", null] } } }))
+            return resolve(await dbApp.distinctInCollection({ collection: "battles", key: "battle_number", query: { "battle_number": { $nin: ["", null] } } }))
         } catch (e) {
             return reject()
         }
-
     })
 };
 
@@ -33,7 +32,7 @@ function count() {
 function search(requestData) {
     return new Promise(async (resolve, reject) => {
         try {
-            let obj = { "$or": [] }            
+            let obj = { "$or": [] }
             for (let key in requestData) {
                 let result = stringSimilarity.findBestMatch(key, keyData).ratings.filter(val => {
                     return val.rating >= 0.4
@@ -45,10 +44,20 @@ function search(requestData) {
                 })
             }
             delete searchObj
-            return resolve(await db.findInCollection({ collection: "battles", data: obj }))
+            return resolve(await dbApp.findInCollection({ collection: "battles", data: obj }))
         } catch (e) {
             return reject()
         }
+    })
+}
 
+
+function stats() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            return resolve(await dbApp.getStats())
+        } catch (e) {
+            return reject()
+        }
     })
 }

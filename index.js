@@ -24,7 +24,7 @@ app.get('/count', async (req, res) => {
    try {
       let model = await appOps.count()
       if (model.status && model.status.toLowerCase() == "success" && model.data) {
-         res.send({totalBattleCount : model.data.length});
+         res.send({ totalBattleCount: model.data.length });
       } else {
          res.send(model.msg)
       }
@@ -46,3 +46,15 @@ app.get('/search', async (req, res) => {
    }
 });
 
+app.get('/stats', async (req, res) => {
+   try {
+      let model = await appOps.stats()
+      if (model.status && model.status.toLowerCase() == "success" && model.data) {
+         res.send(model.data);
+      } else {
+         res.send(model.msg)
+      }
+   } catch (e) {
+      res.status(500)
+   }
+});
