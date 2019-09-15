@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.7.1",
     "node-xlsx": "^0.15.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "string-similarity": "^3.0.0"
   }
 }

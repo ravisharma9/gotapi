@@ -9,11 +9,11 @@ app.get('/', function (req, res) {
 
 app.get('/list', async (req, res) => {
    try {
-      let data = await appOps.list()
-      if (data.status && data.status.toLowerCase() == "success" && data.data) {
-         res.send(data.data);
+      let model = await appOps.list()
+      if (model.status && model.status.toLowerCase() == "success" && model.data) {
+         res.send(model.data);
       } else {
-         res.send(data.msg)
+         res.send(model.msg)
       }
    } catch (e) {
       res.status(500)
@@ -22,11 +22,11 @@ app.get('/list', async (req, res) => {
 
 app.get('/count', async (req, res) => {
    try {
-      let data = await appOps.count()
-      if (data.status && data.status.toLowerCase() == "success" && data.data) {
-         res.send({totalBattleCount : data.data.length});
+      let model = await appOps.count()
+      if (model.status && model.status.toLowerCase() == "success" && model.data) {
+         res.send({totalBattleCount : model.data.length});
       } else {
-         res.send(data.msg)
+         res.send(model.msg)
       }
    } catch (e) {
       res.status(500)
@@ -35,9 +35,14 @@ app.get('/count', async (req, res) => {
 
 app.get('/search', async (req, res) => {
    try {
-      console.log(req.query)
-      res.send(req.query)
+      let model = await appOps.search(req.query)
+      if (model.status && model.status.toLowerCase() == "success" && model.data) {
+         res.send(model.data);
+      } else {
+         res.send(model.msg)
+      }
    } catch (e) {
       res.status(500)
    }
 });
+

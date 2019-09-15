@@ -18,6 +18,12 @@ const obj = xlsx.parse(__dirname + '/document/battles.csv');
             // console.log("-------------------------key")
             // console.log(key)
             // console.log("-------------------------key")
+            await fs.writeFile(__dirname + '/document/battlesKey.json', JSON.stringify(key, null, 3), function (err) {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("The file was saved!");
+            });
             for (let j = 1; j <= dataArr.length; j++) {
                 if (dataArr[j]) {
                     let data = {}
@@ -33,18 +39,15 @@ const obj = xlsx.parse(__dirname + '/document/battles.csv');
             // console.log("-------------------------obje")
             // console.log(obje)
             // console.log("-------------------------obje")
-
-            // console.log("-------------------------dbData")
-            // console.log(dbData)
-            // console.log("-------------------------dbData")
-
             await fs.writeFile(__dirname + '/document/battles.json', JSON.stringify(obje, null, 3), function (err) {
                 if (err) {
                     return console.log(err);
                 }
                 console.log("The file was saved!");
             });
-
+            // console.log("-------------------------dbData")
+            // console.log(dbData)
+            // console.log("-------------------------dbData")
             await db.insertCollection({
                 data: dbData,
                 collection: "battles"
